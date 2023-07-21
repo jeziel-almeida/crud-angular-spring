@@ -11,7 +11,7 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private readonly API_URL = '/assets/coursess.json';
+  private readonly API_URL = '/assets/courses.json';
 
   list(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.API_URL).pipe(

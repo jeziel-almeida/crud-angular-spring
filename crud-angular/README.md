@@ -13,6 +13,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 > ng g interface courses/model/course
 
+> ng g m shared/app-material #module to host all the imports of the angular material
+
+> ng g s courses/service/courses
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

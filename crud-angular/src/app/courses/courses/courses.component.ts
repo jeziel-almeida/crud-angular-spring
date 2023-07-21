@@ -1,20 +1,30 @@
-import { Component } from '@angular/core';
+import { CoursesService } from './../service/courses.service';
+import { Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
+import { Observable, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [
-    { _id: '1', name: 'Angular', category: 'front-end' },
-    { _id: '2', name: 'Java Spring', category: 'back-end' },
-  ];
+  courses$: Observable<Course[]>;
   displayedColumns = ['name', 'category']
 
-  constructor() {
+  constructor(private coursesService: CoursesService) {
+
+    //this.coursesService.list().subscribe(coursesObs => this.courses = coursesObs);
+    this.courses$ = this.coursesService.list().pipe(
+      catchError(error => {
+        console.log(error);
+        return of([])
+      })
+    )
+  }
+
+  ngOnInit(): void {
 
   }
 }

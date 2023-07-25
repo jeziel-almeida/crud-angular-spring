@@ -27,6 +27,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 > ng g pipe shared/pipes/category
 
+> ng g c courses/course-form
+
 ## Development server
 
 Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

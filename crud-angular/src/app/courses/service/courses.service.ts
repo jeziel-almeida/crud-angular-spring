@@ -11,12 +11,12 @@ export class CoursesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private readonly API_URL = '/assets/courses.json';
+  private readonly API_URL = 'api/courses';
 
   list(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.API_URL).pipe(
       first(),
-      delay(2000),
+      //delay(2000),
       tap(courses => console.log(courses))
     );
   }

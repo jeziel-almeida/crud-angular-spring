@@ -12,7 +12,7 @@ import lombok.Data;
 public class Course {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //Varchar(200) e NOT NULL

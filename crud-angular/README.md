@@ -3,7 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 
 ## Commands used
-> ng new crud-angular 
+> ng new crud-angular #Create the project
 
 > ng add @angular/material
 
@@ -13,7 +13,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 > ng g interface courses/model/course
 
-> ng g m shared/app-material #module to host all the imports of the angular material
+> ng g m shared/app-material #Module to host all the imports of the angular material
 
 > ng g s courses/service/courses
 
@@ -28,6 +28,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 > ng g pipe shared/pipes/category
 
 > ng g c courses/course-form
+
+> ng g c shared/components/success-dialog
 
 ## Development server
 

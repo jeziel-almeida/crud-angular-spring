@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog/success-dialog.component';
@@ -15,20 +15,20 @@ import { Router } from '@angular/router';
 })
 export class CourseFormComponent {
 
-  form: FormGroup;
+  form = this.formBuilder.group({
+    name: [''],
+    category: ['']
+  })
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     public dialog: MatDialog,
     private service: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router
   ) {
-    this.form = formBuilder.group({
-      name: [null],
-      category: [null]
-    })
+
   }
 
   onSuccess() {

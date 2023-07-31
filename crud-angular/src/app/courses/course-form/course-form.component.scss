@@ -15,3 +15,8 @@ mat-card {
 mat-card-actions button {
   margin: 10px;
 }
+
+.min-width {
+  width: 100%;
+  min-width: 150px;
+}

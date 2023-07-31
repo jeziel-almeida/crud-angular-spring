@@ -1,11 +1,12 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog/success-dialog.component';
 
 import { CoursesService } from '../service/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -18,10 +19,11 @@ export class CourseFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     public dialog: MatDialog,
     private service: CoursesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location,
+    private router: Router
   ) {
     this.form = formBuilder.group({
       name: [null],
@@ -29,20 +31,25 @@ export class CourseFormComponent {
     })
   }
 
-  onSuccess(successMsg: string) {
+  onSuccess() {
+    const successMsg = "Curso salvo com sucesso!";
+
     this.dialog.open(SuccessDialogComponent, {
       data: successMsg
     });
+
+    this.router.navigate(['courses'])
   }
 
   onSubmit() {
-    this.service.save(this.form.value).subscribe(result => console.log("Result: ", result), error => this.onError())
+    //https://rxjs.dev/deprecations/subscribe-arguments
+    this.service.save(this.form.value).subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
 
-    //this.onSuccess("Curso salvo com sucesso!")
+
   }
 
-  onCancel() {
-    this.router.navigate(['/courses']);
+  goBack() {
+    this.location.back();
   }
 
   private onError() {

@@ -3,7 +3,7 @@
 
     <mat-toolbar color="accent">Novo Curso</mat-toolbar>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="min-width">
       <mat-form-field appearance="outline" class="campo-form campo-nome">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="name">
@@ -24,7 +24,7 @@
 
   <mat-card-actions>
     <button mat-raised-button color="accent" (click)="onSubmit()">Salvar</button>
-    <button mat-raised-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button (click)="goBack()">Cancelar</button>
   </mat-card-actions>
 
 </mat-card>

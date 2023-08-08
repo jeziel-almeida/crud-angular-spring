@@ -17,8 +17,12 @@ export class CoursesService {
     return this.httpClient.get<Course[]>(this.API_URL).pipe(
       first(),
       //delay(2000),
-      tap(courses => console.log(courses))
+      //tap(courses => console.log(courses))
     );
+  }
+
+  loadById(id: string) {
+    return this.httpClient.get<Course>(`${this.API_URL}/${id}`);
   }
 
   save(record: Partial<Course>) {

@@ -35,6 +35,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 > ng g c courses/courses-list
 
+> mover componentes 'courses' e 'course-form' para a pasta 'containers'
+
+> mover componente 'courses-list' para a pasta 'components'
+
+### criar um resolver
+
+> ng g resolver courses/guards/course
+
 ## Development server
 
 Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

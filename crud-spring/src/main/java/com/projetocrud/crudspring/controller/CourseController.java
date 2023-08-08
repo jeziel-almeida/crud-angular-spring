@@ -29,7 +29,7 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<Course> getByName(@PathVariable String name) {
         Course course = courseRepository.findItemByName(name);
         if(course != null) {

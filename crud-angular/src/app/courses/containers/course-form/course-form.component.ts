@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog/success-dialog.component';
 
-import { CoursesService } from '../service/courses.service';
+import { CoursesService } from '../../service/courses.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -31,28 +31,29 @@ export class CourseFormComponent {
 
   }
 
-  onSuccess() {
-    const successMsg = "Curso salvo com sucesso!";
+  onSubmit() {
+    //https://rxjs.dev/deprecations/subscribe-arguments
+    this.service.save(this.form.value).subscribe({next: (result) => {
+      this.onSuccess();
+      console.log(result);
+    }, error: (error) => this.onError()})
 
+
+  }
+
+  private onSuccess() {
+    const successMsg = "Curso salvo com sucesso!";
     this.dialog.open(SuccessDialogComponent, {
       data: successMsg
     });
-
     this.router.navigate(['courses'])
-  }
-
-  onSubmit() {
-    //https://rxjs.dev/deprecations/subscribe-arguments
-    this.service.save(this.form.value).subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
-
-
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   private onError() {
     this.snackBar.open("Erro ao salvar o curso!", "", {duration: 3000})
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

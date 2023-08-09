@@ -6,7 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog/success-dialog.component';
 
 import { CoursesService } from '../../service/courses.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-course-form',
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
 export class CourseFormComponent {
 
   form = this.formBuilder.group({
+    _id: [''],
     name: [''],
     category: ['']
   })
@@ -26,17 +28,26 @@ export class CourseFormComponent {
     private service: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+
+  }
+
+  ngOnInit(): void {
+    const course: Course = this.route.snapshot.data['course'];
+    
+    this.form.setValue({
+      _id: course.id,
+      name: course.name,
+      category: course.category
+    })
 
   }
 
   onSubmit() {
     //https://rxjs.dev/deprecations/subscribe-arguments
-    this.service.save(this.form.value).subscribe({next: (result) => {
-      this.onSuccess();
-      console.log(result);
-    }, error: (error) => this.onError()})
+    this.service.save(this.form.value).subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
 
 
   }

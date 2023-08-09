@@ -23,7 +23,7 @@ export class CoursesListComponent {
     this.add.emit(true);
   }
 
-  onEdit(course: any) {
+  onEdit(course: Course) {
     this.edit.emit(course);
   }
 }

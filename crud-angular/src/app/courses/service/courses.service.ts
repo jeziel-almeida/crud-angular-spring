@@ -26,14 +26,14 @@ export class CoursesService {
   }
 
   save(record: Partial<Course>) {
-
-    if(record.id) {
-      return this.update(record);
+    if(record.id === undefined || record.id.length < 1) {
+      return this.create(record);
     }
-    return this.create(record);
+    return this.update(record);
   }
 
   private create(record: Partial<Course>) {
+    record.id = undefined;
     return this.httpClient.post<Course>(this.API_URL, record);
   }
 

@@ -17,7 +17,7 @@ import { Course } from '../../model/course';
 export class CourseFormComponent {
 
   form = this.formBuilder.group({
-    _id: [''],
+    id: [''],
     name: [''],
     category: ['']
   })
@@ -36,9 +36,9 @@ export class CourseFormComponent {
 
   ngOnInit(): void {
     const course: Course = this.route.snapshot.data['course'];
-    
+
     this.form.setValue({
-      _id: course.id,
+      id: course.id,
       name: course.name,
       category: course.category
     })
@@ -48,7 +48,8 @@ export class CourseFormComponent {
   onSubmit() {
     //https://rxjs.dev/deprecations/subscribe-arguments
     this.service.save(this.form.value).subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
-
+    //const result$ = this.service.save(this.form.value);
+    //result$.subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
 
   }
 

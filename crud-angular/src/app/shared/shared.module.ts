@@ -11,7 +11,7 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
   declarations: [
     ErrorDialogComponent,
     CategoryPipe,
-    SuccessDialogComponent
+    SuccessDialogComponent,
   ],
   imports: [
     CommonModule,

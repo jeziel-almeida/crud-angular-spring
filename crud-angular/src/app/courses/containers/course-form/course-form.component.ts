@@ -47,10 +47,10 @@ export class CourseFormComponent {
 
   onSubmit() {
     //https://rxjs.dev/deprecations/subscribe-arguments
-    this.service.save(this.form.value).subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
-    //const result$ = this.service.save(this.form.value);
-    //result$.subscribe({next: (result) => this.onSuccess(), error: (error) => this.onError()})
-
+    this.service.save(this.form.value).subscribe({
+      next: (result) => this.onSuccess(), 
+      error: (error) => this.onError()
+    })
   }
 
   private onSuccess() {
@@ -62,7 +62,7 @@ export class CourseFormComponent {
   }
 
   private onError() {
-    this.snackBar.open("Erro ao salvar o curso!", "", {duration: 3000})
+    this.snackBar.open("Erro ao salvar o curso!", "X", {duration: 3000})
   }
 
   goBack() {

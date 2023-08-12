@@ -4,6 +4,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { AppMaterialModule } from './app-material/app-material.module';
 import { CategoryPipe } from './pipes/category.pipe';
 import { SuccessDialogComponent } from './components/success-dialog/success-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -12,6 +13,7 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
     ErrorDialogComponent,
     CategoryPipe,
     SuccessDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { SuccessDialogComponent } from './components/success-dialog/success-dial
   ],
   exports: [
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
+    ConfirmationDialogComponent,
   ]
 })
 export class SharedModule { }

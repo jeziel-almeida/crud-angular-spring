@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessDialogComponent } from 'src/app/shared/components/success-dialog/success-dialog.component';
 
 import { CoursesService } from '../../service/courses.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Course } from '../../model/course';
 
 @Component({
@@ -28,7 +27,6 @@ export class CourseFormComponent {
     private service: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private router: Router,
     private route: ActivatedRoute
   ) {
 
@@ -54,15 +52,12 @@ export class CourseFormComponent {
   }
 
   private onSuccess() {
-    const successMsg = "Curso salvo com sucesso!";
-    this.dialog.open(SuccessDialogComponent, {
-      data: successMsg
-    });
-    this.router.navigate(['courses'])
+    this.snackBar.open("Curso salvo com sucesso!", "X", {duration: 4000})
+    this.goBack();
   }
 
   private onError() {
-    this.snackBar.open("Erro ao salvar o curso!", "X", {duration: 3000})
+    this.snackBar.open("Erro ao salvar o curso!", "X", {duration: 4000})
   }
 
   goBack() {

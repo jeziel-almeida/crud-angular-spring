@@ -1,5 +1,7 @@
 package com.projetocrud.crudspring.repository;
 
+import java.util.List;
+
 //import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -16,6 +18,9 @@ public interface CourseRepository extends MongoRepository<Course, String> {
 
     // @Query(value = "{category:'?0'}", fields = "{'name' : 1}")
     // List<Course> findByCategory(String category);
+
+    @Query(value = "{status:'Ativo'}")
+    List<Course> findByActive();
 
     public long count();
 }

@@ -32,7 +32,8 @@ public class CourseController {
 
     @GetMapping
     public List<Course> list() {
-        return courseRepository.findAll();
+        //return courseRepository.findAll();
+        return courseRepository.findByActive();
     }
 
     @GetMapping("/name/{name}")
@@ -74,7 +75,8 @@ public class CourseController {
     public ResponseEntity<Void> delete(@PathVariable @NotNull String id) {
         return courseRepository.findById(id)
             .map(recordFound -> {
-                courseRepository.deleteById(id);
+                recordFound.setStatus("Inativo");
+                courseRepository.save(recordFound);
                 return ResponseEntity.noContent().<Void>build();
             })
             .orElse(ResponseEntity.notFound().build());

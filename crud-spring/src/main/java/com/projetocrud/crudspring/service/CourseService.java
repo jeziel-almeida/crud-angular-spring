@@ -1,12 +1,12 @@
 package com.projetocrud.crudspring.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.projetocrud.crudspring.exception.RecordNotFoundException;
 import com.projetocrud.crudspring.model.Course;
 import com.projetocrud.crudspring.repository.CourseRepository;
 
@@ -29,33 +29,37 @@ public class CourseService {
     }
 
     public Course getByName(@PathVariable @NotNull String name) {
-        return courseRepository.findItemByName(name);
+        Course course = courseRepository.findItemByName(name);
+        if(course == null) {
+            throw new RecordNotFoundException(name);
+        }
+        return course;
     }
 
-    public Optional<Course> getById(@PathVariable @NotNull String id) {
-        return courseRepository.findById(id);
+    public Course getById(@PathVariable @NotNull String id) {
+        return courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     public Course create(@Valid Course course) {
         return courseRepository.save(course);
     }
 
-    public Optional<Course> update(@PathVariable @NotNull String id, @Valid Course course) {
+    public Course update(@PathVariable @NotNull String id, @Valid Course course) {
         return courseRepository.findById(id)
             .map(recordFound -> {
                 recordFound.setName(course.getName());
                 recordFound.setCategory(course.getCategory());
                 return courseRepository.save(recordFound);
-            });
+            }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(@PathVariable @NotNull String id) {
-        return courseRepository.findById(id)
-            .map(recordFound -> {
-                recordFound.setStatus("Inativo");
-                courseRepository.save(recordFound);
-                return true;
-            })
-            .orElse(false);
+    public void delete(@PathVariable @NotNull String id) {
+        courseRepository.findById(id)
+        .map(recordFound -> {
+            recordFound.setStatus("Inativo");
+            courseRepository.save(recordFound);
+            return true;
+        })
+        .orElseThrow(() -> new RecordNotFoundException(id));
     }
 }

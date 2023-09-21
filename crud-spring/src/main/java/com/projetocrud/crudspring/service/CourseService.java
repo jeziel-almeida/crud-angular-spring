@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.projetocrud.crudspring.dto.CourseDTO;
 import com.projetocrud.crudspring.dto.mapper.CourseMapper;
+import com.projetocrud.crudspring.enums.Status;
 import com.projetocrud.crudspring.exception.RecordNotFoundException;
 import com.projetocrud.crudspring.repository.CourseRepository;
 
@@ -50,19 +51,19 @@ public class CourseService {
         return courseMapper.toDTO(courseRepository.save(courseMapper.toEntity(course)));
     }
 
-    public CourseDTO update(@PathVariable @NotNull String id, @Valid @NotNull CourseDTO course) {
+    public CourseDTO update(@NotNull String id, @Valid @NotNull CourseDTO course) {
         return courseRepository.findById(id)
             .map(recordFound -> {
                 recordFound.setName(course.name());
-                recordFound.setCategory(course.category());
+                recordFound.setCategory(courseMapper.convertValueToCategory(course.category()));
                 return courseMapper.toDTO(courseRepository.save(recordFound));
             }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public void delete(@PathVariable @NotNull String id) {
+    public void delete(@NotNull String id) {
         courseRepository.findById(id)
         .map(recordFound -> {
-            recordFound.setStatus("Inativo");
+            recordFound.setStatus(Status.INATIVO);
             courseRepository.save(recordFound);
             return true;
         })

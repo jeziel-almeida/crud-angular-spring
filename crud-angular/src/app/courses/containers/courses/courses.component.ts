@@ -49,7 +49,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onEdit(course: Course) {
-    this.router.navigate(['edit', course.id], {relativeTo: this.route});
+    this.router.navigate(['edit', course._id], {relativeTo: this.route});
   }
 
   onDelete(course: Course) {
@@ -60,7 +60,7 @@ export class CoursesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.service.remove(course.id).subscribe({
+        this.service.remove(course._id).subscribe({
           next: () => {
             this.snackBar.open('Removido com sucesso!', 'X', {
               duration: 2000,
@@ -72,6 +72,6 @@ export class CoursesComponent implements OnInit {
           error: () => this.onError('Erro ao remover curso!')
         })
       }
-    });    
+    });
   }
 }

@@ -16,7 +16,7 @@ import { Course } from '../../model/course';
 export class CourseFormComponent {
 
   form = this.formBuilder.group({
-    id: [''],
+    _id: [''],
     name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
     category: ['', [Validators.required]]
   })
@@ -36,7 +36,7 @@ export class CourseFormComponent {
     const course: Course = this.route.snapshot.data['course'];
 
     this.form.setValue({
-      id: course.id,
+      _id: course._id,
       name: course.name,
       category: course.category
     })
@@ -75,7 +75,7 @@ export class CourseFormComponent {
       const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 5;
       return `Tamanho mínimo precisa ser de ${requiredLength} caracters.`;
     }
-    
+
     if(field?.hasError('maxlength')) {
       const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 200;
       return `Tamanho máximo excedido de ${requiredLength} caracters.`;

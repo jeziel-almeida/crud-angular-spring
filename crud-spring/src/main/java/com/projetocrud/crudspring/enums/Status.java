@@ -1,7 +1,7 @@
 package com.projetocrud.crudspring.enums;
 
 public enum Status {
-    ATIVO("Ativo"), INATIVO("Inativo");
+    ACTIVE("Ativo"), INACTIVE("Inativo");
 
     private String value;
 

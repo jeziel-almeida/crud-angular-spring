@@ -19,13 +19,14 @@ import com.projetocrud.crudspring.service.CourseService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
-    
-    private CourseService courseService;
+
+    private final CourseService courseService;
 
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
@@ -36,14 +37,9 @@ public class CourseController {
         return courseService.list();
     }
 
-    @GetMapping("/name/{name}")
-    public CourseDTO getByName(@PathVariable @NotNull String name) {
-        return courseService.getByName(name);
-    }
-
     @GetMapping("/{id}")
-    public CourseDTO getById(@PathVariable @NotNull String id) {
-        return courseService.getById(id);
+    public CourseDTO findById(@PathVariable @NotNull @Positive Long id) {
+        return courseService.findById(id);
     }
 
     @PostMapping
@@ -53,13 +49,14 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public CourseDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull CourseDTO course) {
+    public CourseDTO update(@PathVariable @NotNull @Positive Long id,
+            @RequestBody @Valid @NotNull CourseDTO course) {
         return courseService.update(id, course);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull String id) {
+    public void delete(@PathVariable @NotNull @Positive Long id) {
         courseService.delete(id);
     }
 }

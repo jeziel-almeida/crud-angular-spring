@@ -8,30 +8,38 @@ import com.projetocrud.crudspring.model.Course;
 
 @Component
 public class CourseMapper {
-    
+
     public CourseDTO toDTO(Course course) {
-        if(course == null) return null;
-        
+        if (course == null) {
+            return null;
+        }
         return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue());
     }
 
-    public Course toEntity(CourseDTO courseDto) {
-        if(courseDto == null) return null;
+    public Course toEntity(CourseDTO courseDTO) {
+
+        if (courseDTO == null) {
+            return null;
+        }
 
         Course course = new Course();
-        if(courseDto.id() != null) course.setId(courseDto.id());
-        course.setName(courseDto.name());
-        course.setCategory(convertValueToCategory(courseDto.category()));
+        if (courseDTO.id() != null) {
+            course.setId(courseDTO.id());
+        }
+        course.setName(courseDTO.name());
+        // TODO: use a mapper for Category
+        course.setCategory(convertCategoryValue(courseDTO.category()));
         return course;
     }
 
-    public Category convertValueToCategory(String value) {
-        if(value == null) return null;
-
+    public Category convertCategoryValue(String value) {
+        if (value == null) {
+            return null;
+        }
         return switch (value) {
             case "front-end" -> Category.FRONT_END;
             case "back-end" -> Category.BACK_END;
             default -> throw new IllegalArgumentException("Categoria inválida: " + value);
-        };
+        };    
     }
 }

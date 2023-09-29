@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.projetocrud.crudspring.enums.Category;
 import com.projetocrud.crudspring.model.Course;
+import com.projetocrud.crudspring.model.Lesson;
 import com.projetocrud.crudspring.repository.CourseRepository;
 
 @SpringBootApplication
@@ -21,11 +22,17 @@ public class CrudSpringApplication {
 		return args -> {
 			courseRepository.deleteAll();
 
-			Course c = new Course();
-			c.setName("Angular com Spring");
-			c.setCategory(Category.BACK_END);
+			Course course = new Course();
+			course.setName("Angular com Spring");
+			course.setCategory(Category.BACK_END);
 
-			courseRepository.save(c);
+			Lesson lesson = new Lesson();
+			lesson.setName("Loiane - OneToMany");
+			lesson.setYoutubeUrl("Nb4uxLxdvxo");
+			lesson.setCourse(course);
+			course.getLessons().add(lesson);
+
+			courseRepository.save(course);
 		};
 	}
 

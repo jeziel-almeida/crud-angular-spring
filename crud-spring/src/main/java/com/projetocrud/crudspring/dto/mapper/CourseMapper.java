@@ -1,8 +1,11 @@
 package com.projetocrud.crudspring.dto.mapper;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.projetocrud.crudspring.dto.CourseDTO;
+import com.projetocrud.crudspring.dto.LessonDTO;
 import com.projetocrud.crudspring.enums.Category;
 import com.projetocrud.crudspring.model.Course;
 
@@ -13,7 +16,13 @@ public class CourseMapper {
         if (course == null) {
             return null;
         }
-        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(), course.getLessons());
+
+        List<LessonDTO> lessonsDTO = course.getLessons()
+            .stream()
+            .map(lesson -> new LessonDTO(lesson.getId(), lesson.getName(), lesson.getYoutubeUrl()))
+            .toList();
+
+        return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(), lessonsDTO);
     }
 
     public Course toEntity(CourseDTO courseDTO) {

@@ -1,13 +1,13 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { CoursesService } from '../../service/courses.service';
 import { ActivatedRoute } from '@angular/router';
+
 import { Course } from '../../model/course';
 import { Lesson } from '../../model/lesson';
+import { CoursesService } from '../../service/courses.service';
 
 @Component({
   selector: 'app-course-form',
@@ -38,10 +38,6 @@ export class CourseFormComponent {
       category: [course.category, [Validators.required]],
       lessons: this.formBuilder.array(this.retrieveLessons(course))
     })
-
-    console.log(this.form);
-    console.log(this.form.value);
-
   }
 
   private retrieveLessons(course: Course) {
@@ -60,6 +56,10 @@ export class CourseFormComponent {
       name: [lesson.name],
       youtubeUrl: [lesson.youtubeUrl]
     })
+  }
+
+  getLessonsFromArray() {
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
   onSubmit() {
